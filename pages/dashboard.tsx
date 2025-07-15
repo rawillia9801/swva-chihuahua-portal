@@ -5,7 +5,9 @@ import { supabase } from '../lib/supabaseClient'
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  import { User } from '@supabase/supabase-js'
+const [user, setUser] = useState<User | null>(null)
+
 
   useEffect(() => {
     const getUser = async () => {
