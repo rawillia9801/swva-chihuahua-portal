@@ -12,13 +12,16 @@ export default function DashboardPage() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: _ } = await supabase.auth.getSession()
-      if (!data.session?.user) {
-        router.push('/login')
-      } else {
-        setUser(data.session.user)
-        setLoading(false)
-      }
+    const { data } = await supabase.auth.getSession()
+const session = data?.session
+
+if (!session?.user) {
+  router.push('/login')
+} else {
+  setUser(session.user)
+  setLoading(false)
+}
+
     }
     getUser()
   }, [router])
@@ -32,3 +35,4 @@ export default function DashboardPage() {
     </SidebarLayout>
   )
 }
+ 
