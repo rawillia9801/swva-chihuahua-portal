@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { supabase } from '../../../lib/supabaseClient'
-import SidebarLayout from '../../../components/SidebarLayout'
+import { supabase } from '../../lib/supabaseClient'
+import SidebarLayout from '../../components/SidebarLayout'
+
 
 export default function AdminDocsUpload() {
   const [userId, setUserId] = useState('')
