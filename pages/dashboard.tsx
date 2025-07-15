@@ -6,11 +6,13 @@ import SidebarLayout from '../components/SidebarLayout'
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  import { User } from '@supabase/supabase-js'
+const [user, setUser] = useState<User | null>(null)
+
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await supabase.auth.getSession()
+      const { data: _ } = await supabase.auth.getSession()
       if (!data.session?.user) {
         router.push('/login')
       } else {
