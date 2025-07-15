@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { supabase } from '../lib/supabaseClient'
 import SidebarLayout from '../components/SidebarLayout'
+import { User } from '@supabase/supabase-js'
 
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  import { User } from '@supabase/supabase-js'
-const [user, setUser] = useState<User | null>(null)
+  const [user, setUser] = useState<User | null>(null)
 
 
   useEffect(() => {
