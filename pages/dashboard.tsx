@@ -1,46 +1,32 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { supabase } from '../lib/supabaseClient'
+import SidebarLayout from '../components/SidebarLayout'
 
 export default function DashboardPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  import { User } from '@supabase/supabase-js'
-const [user, setUser] = useState<User | null>(null)
-
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     const getUser = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-
-      if (!session?.user) {
+      const { data } = await supabase.auth.getSession()
+      if (!data.session?.user) {
         router.push('/login')
       } else {
-        setUser(session.user)
+        setUser(data.session.user)
         setLoading(false)
       }
     }
-
     getUser()
   }, [router])
 
   if (loading) return <div className="p-6">Checking login status...</div>
 
   return (
-    <div className="p-6">
+    <SidebarLayout>
       <h1 className="text-2xl font-bold">Welcome to your dashboard!</h1>
-      <p className="mt-2">Logged in as: {user.email}</p>
-    </div>
+      <p className="mt-2">Logged in as: {user?.email}</p>
+    </SidebarLayout>
   )
 }
-<button
-  onClick={async () => {
-    await supabase.auth.signOut()
-    router.push('/login')
-  }}
-  className="mt-4 bg-red-600 text-white px-4 py-2"
->
-  Log Out
-</button>
